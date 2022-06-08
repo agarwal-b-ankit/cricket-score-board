@@ -95,18 +95,28 @@ public class Inning {
 		System.out
 				.println("Player Name                              Score                4s          6s         Balls");
 		for (Player player : getBattingOrder()) {
-			System.out.print(player.getName() + "                ");
+			System.out.print(player.getName());
+			if (checkIfCurrentlyBatting(player)) {
+				System.out.print("*");
+			}
+			System.out.print("                ");
 			System.out.print(player.getScoreCard().getNoOfRuns() + "                ");
 			System.out.print(player.getScoreCard().getNoOfFours() + "                ");
 			System.out.print(player.getScoreCard().getNoOfSixes() + "                ");
-			System.out.println(player.getScoreCard().getNoOfBalls());
+			System.out.println(player.getScoreCard().getNoOfBalls() + "                ");
+			// System.out.println(((double) player.getScoreCard().getNoOfRuns()) / player.getScoreCard().getNoOfBalls());
 		}
 		System.out.println("Total: " + getTotalScore() + "/" + getTotalWickets());
 		int ballsPlayed = getTotalBalls();
 		System.out.print("Overs: " + ballsPlayed / 6);
 		if (ballsPlayed % 6 != 0)
 			System.out.print("." + ballsPlayed % 6);
+		System.out.println("Extras so far: " + extras);
 		System.out.println();
+	}
+
+	private boolean checkIfCurrentlyBatting(Player player) {
+		return getCurrentBattingPlayer().equals(player) || getOffStrikePlayer().equals(player);
 	}
 
 }
